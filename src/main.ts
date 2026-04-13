@@ -50,11 +50,18 @@ scene.add(camera);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
+// textures
+const textureLoader = new THREE.TextureLoader();
+const groundAlphaTexture = textureLoader.load("./alpha.webp");
+
 // geometries
 // ground
 const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(20, 20),
-  new THREE.MeshStandardMaterial(),
+  new THREE.PlaneGeometry(30, 30),
+  new THREE.MeshStandardMaterial({
+    alphaMap: groundAlphaTexture,
+    transparent: true,
+  }),
 );
 ground.rotation.x = -Math.PI * 0.5;
 ground.receiveShadow = true;
