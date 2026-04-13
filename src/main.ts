@@ -56,9 +56,8 @@ const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(20, 20),
   new THREE.MeshStandardMaterial(),
 );
-
 ground.rotation.x = -Math.PI * 0.5;
-
+ground.receiveShadow = true;
 scene.add(ground);
 
 // pyramids
@@ -77,6 +76,7 @@ const khufu = new THREE.Mesh(
 );
 khufu.position.y = sizes.pyramids.khufu.height * 0.5;
 khufu.position.z = -2.75 * calculatePyramidRadius(sizes.pyramids.khufu.width);
+khufu.castShadow = true;
 pyramids.add(khufu);
 
 const khafre = new THREE.Mesh(
@@ -88,6 +88,7 @@ const khafre = new THREE.Mesh(
   pyramidMaterial,
 );
 khafre.position.y = sizes.pyramids.khafre.height * 0.5;
+khafre.castShadow = true;
 pyramids.add(khafre);
 
 const menkaure = new THREE.Mesh(
@@ -101,6 +102,7 @@ const menkaure = new THREE.Mesh(
 menkaure.position.x = 2 * calculatePyramidRadius(sizes.pyramids.menkaure.width);
 menkaure.position.y = sizes.pyramids.menkaure.height * 0.5;
 menkaure.position.z = 6 * calculatePyramidRadius(sizes.pyramids.menkaure.width);
+menkaure.castShadow = true;
 scene.add(menkaure);
 
 // lights
@@ -109,12 +111,19 @@ scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(3, 2, -8);
+directionalLight.castShadow = true;
+
+directionalLight.shadow.mapSize.width = 1024;
+directionalLight.shadow.mapSize.height = 1024;
+directionalLight.shadow.camera.far = 20;
+
 scene.add(directionalLight);
 
 // renderer
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.screen.width, sizes.screen.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
 
 // event listeners
 window.addEventListener("resize", () => {
