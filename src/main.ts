@@ -160,6 +160,9 @@ directionalLight.shadow.camera.far = 20;
 
 scene.add(directionalLight);
 
+// fog
+scene.fog = new THREE.FogExp2(0x02343f, 0.125);
+
 // renderer
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.screen.width, sizes.screen.height);
