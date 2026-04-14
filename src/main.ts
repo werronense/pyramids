@@ -52,7 +52,30 @@ controls.enableDamping = true;
 
 // textures
 const textureLoader = new THREE.TextureLoader();
+
 const groundAlphaTexture = textureLoader.load("./alpha.webp");
+const groundColorTexture = textureLoader.load(
+  "./aerial_beach_01_1k/aerial_beach_01_diff_1k.jpg",
+);
+const groundARMTexture = textureLoader.load(
+  "./aerial_beach_01_1k/aerial_beach_01_arm_1k.jpg",
+);
+const groundNormalTexture = textureLoader.load(
+  "./aerial_beach_01_1k/aerial_beach_01_nor_gl_1k.jpg",
+);
+
+groundColorTexture.colorSpace = THREE.SRGBColorSpace;
+groundColorTexture.repeat.set(8, 8);
+groundColorTexture.wrapS = THREE.RepeatWrapping;
+groundColorTexture.wrapT = THREE.RepeatWrapping;
+
+groundARMTexture.repeat.set(8, 8);
+groundARMTexture.wrapS = THREE.RepeatWrapping;
+groundARMTexture.wrapT = THREE.RepeatWrapping;
+
+groundNormalTexture.repeat.set(8, 8);
+groundNormalTexture.wrapS = THREE.RepeatWrapping;
+groundNormalTexture.wrapT = THREE.RepeatWrapping;
 
 // geometries
 // ground
@@ -60,6 +83,12 @@ const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(30, 30),
   new THREE.MeshStandardMaterial({
     alphaMap: groundAlphaTexture,
+    aoMap: groundARMTexture,
+    color: 0xffffff,
+    map: groundColorTexture,
+    metalnessMap: groundARMTexture,
+    normalMap: groundNormalTexture,
+    roughnessMap: groundARMTexture,
     transparent: true,
   }),
 );
@@ -71,7 +100,10 @@ scene.add(ground);
 const pyramids = new THREE.Group();
 scene.add(pyramids);
 
-const pyramidMaterial = new THREE.MeshStandardMaterial();
+const limestoneHexColor = 0xdcd8c7;
+const pyramidMaterial = new THREE.MeshStandardMaterial({
+  color: limestoneHexColor,
+});
 
 const khufu = new THREE.Mesh(
   new THREE.ConeGeometry(
@@ -113,10 +145,12 @@ menkaure.castShadow = true;
 scene.add(menkaure);
 
 // lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
+const lightHexColor = 0x86cdff;
+
+const ambientLight = new THREE.AmbientLight(lightHexColor, 0.25);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+const directionalLight = new THREE.DirectionalLight(lightHexColor, 1);
 directionalLight.position.set(3, 2, -8);
 directionalLight.castShadow = true;
 
