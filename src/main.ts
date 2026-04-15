@@ -145,6 +145,39 @@ menkaure.position.z = 6 * calculatePyramidRadius(sizes.pyramids.menkaure.width);
 menkaure.castShadow = true;
 scene.add(menkaure);
 
+// stars
+const starCount = 1000;
+const starGeometry = new THREE.BufferGeometry();
+
+const starPositions = new Float32Array(starCount * 3);
+
+for (let i = 0; i < starCount; ++i) {
+  const i3 = i * 3;
+
+  const radius = 15 + Math.random() * 3;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.random() * Math.PI * 2;
+
+  starPositions[i3 + 0] = radius * Math.sin(phi) * Math.cos(theta);
+  starPositions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+  starPositions[i3 + 2] = radius * Math.cos(phi);
+}
+
+starGeometry.setAttribute(
+  "position",
+  new THREE.BufferAttribute(starPositions, 3),
+);
+
+const starMaterial = new THREE.PointsMaterial({
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+  size: 0.05,
+  sizeAttenuation: true,
+});
+
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
+
 // lights
 const lightHexColor = 0x86cdff;
 
@@ -162,7 +195,7 @@ directionalLight.shadow.camera.far = 20;
 scene.add(directionalLight);
 
 // fog
-scene.fog = new THREE.FogExp2(0x02343f, 0.125);
+scene.fog = new THREE.FogExp2(0x02343f, 0.05);
 
 // renderer
 const renderer = new THREE.WebGLRenderer({ canvas });
