@@ -88,6 +88,7 @@ const ground = new THREE.Mesh(
     map: groundColorTexture,
     metalnessMap: groundARMTexture,
     normalMap: groundNormalTexture,
+    normalScale: new THREE.Vector2(0.25, 0.25),
     roughnessMap: groundARMTexture,
     transparent: true,
   }),
