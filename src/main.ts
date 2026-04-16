@@ -1,6 +1,10 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons";
+import groundAlpha from "./assets/alpha.webp";
+import groundColor from "./assets/aerial_beach_01_1k/aerial_beach_01_diff_1k.jpg";
+import groundARM from "./assets/aerial_beach_01_1k/aerial_beach_01_arm_1k.jpg";
+import groundNormal from "./assets/aerial_beach_01_1k/aerial_beach_01_nor_gl_1k.jpg";
 
 // sizes
 const sizes = {
@@ -53,16 +57,10 @@ controls.enableDamping = true;
 // textures
 const textureLoader = new THREE.TextureLoader();
 
-const groundAlphaTexture = textureLoader.load("./alpha.webp");
-const groundColorTexture = textureLoader.load(
-  "./aerial_beach_01_1k/aerial_beach_01_diff_1k.jpg",
-);
-const groundARMTexture = textureLoader.load(
-  "./aerial_beach_01_1k/aerial_beach_01_arm_1k.jpg",
-);
-const groundNormalTexture = textureLoader.load(
-  "./aerial_beach_01_1k/aerial_beach_01_nor_gl_1k.jpg",
-);
+const groundAlphaTexture = textureLoader.load(groundAlpha);
+const groundColorTexture = textureLoader.load(groundColor);
+const groundARMTexture = textureLoader.load(groundARM);
+const groundNormalTexture = textureLoader.load(groundNormal);
 
 groundColorTexture.colorSpace = THREE.SRGBColorSpace;
 groundColorTexture.repeat.set(8, 8);
