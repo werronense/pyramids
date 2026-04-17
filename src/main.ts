@@ -2,9 +2,9 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons";
 import groundAlpha from "./assets/alpha.webp";
-import groundColor from "./assets/aerial_beach_01_1k/aerial_beach_01_diff_1k.jpg";
-import groundARM from "./assets/aerial_beach_01_1k/aerial_beach_01_arm_1k.jpg";
-import groundNormal from "./assets/aerial_beach_01_1k/aerial_beach_01_nor_gl_1k.jpg";
+import groundColor from "./assets/aerial_beach_01_1k/aerial_beach_01_diff_1k.webp";
+import groundARM from "./assets/aerial_beach_01_1k/aerial_beach_01_arm_1k.webp";
+import groundNormal from "./assets/aerial_beach_01_1k/aerial_beach_01_nor_gl_1k.webp";
 
 // sizes
 const sizes = {
