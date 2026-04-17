@@ -145,7 +145,7 @@ menkaure.castShadow = true;
 scene.add(menkaure);
 
 // stars
-const starCount = 1000;
+const starCount = 2500;
 const starGeometry = new THREE.BufferGeometry();
 
 const starPositions = new Float32Array(starCount * 3);
@@ -155,11 +155,11 @@ for (let i = 0; i < starCount; ++i) {
 
   const radius = 15 + Math.random() * 3;
   const theta = Math.random() * Math.PI * 2;
-  const phi = Math.random() * Math.PI * 2;
+  const phi = Math.random() * Math.PI * 0.5;
 
   starPositions[i3 + 0] = radius * Math.sin(phi) * Math.cos(theta);
-  starPositions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-  starPositions[i3 + 2] = radius * Math.cos(phi);
+  starPositions[i3 + 1] = radius * Math.cos(phi);
+  starPositions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
 }
 
 starGeometry.setAttribute(
