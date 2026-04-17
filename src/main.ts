@@ -33,9 +33,11 @@ const calculatePyramidRadius = (width: number) => {
   return Math.sqrt(2 * Math.pow(width / 2, 2));
 };
 
-// canvas
+// HTML Elements
 const canvas =
   (document.querySelector("canvas.webgl") as HTMLCanvasElement) ?? undefined;
+const overlay =
+  (document.querySelector("div.overlay") as HTMLElement) ?? undefined;
 
 // scene
 const scene = new THREE.Scene();
@@ -56,7 +58,10 @@ controls.maxPolarAngle = Math.PI / 2 - 0.025;
 controls.enableDamping = true;
 
 // textures
-const textureLoader = new THREE.TextureLoader();
+const manager = new THREE.LoadingManager();
+manager.onLoad = () => overlay.classList.add("close-overlay");
+
+const textureLoader = new THREE.TextureLoader(manager);
 
 const groundAlphaTexture = textureLoader.load(groundAlpha);
 const groundColorTexture = textureLoader.load(groundColor);
