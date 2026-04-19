@@ -202,10 +202,11 @@ scene.add(directionalLight);
 scene.fog = new THREE.FogExp2(0x02343f, 0.05);
 
 // renderer
-const renderer = new THREE.WebGLRenderer({ canvas });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(sizes.screen.width, sizes.screen.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
 
 // event listeners
 window.addEventListener("resize", () => {
