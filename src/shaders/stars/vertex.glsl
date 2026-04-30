@@ -1,3 +1,5 @@
+attribute float aScale;
+
 uniform float uSize;
 
 void main() {
@@ -9,7 +11,7 @@ void main() {
     gl_Position = projectedPosition;
 
     // Sizing
-    gl_PointSize = uSize;
+    gl_PointSize = uSize * aScale;
 
     // Size attenuation
     gl_PointSize *= (1.0 / -viewPosition.z);
