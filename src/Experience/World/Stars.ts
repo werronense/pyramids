@@ -1,13 +1,16 @@
 import * as THREE from "three";
 import Experience from "../Experience.ts";
+import starsVertexShader from "../../shaders/stars/vertex.glsl";
+import starsFragmentShader from "../../shaders/stars/fragment.glsl";
 
 export default class Stars {
   experience: Experience = new Experience();
   scene = this.experience.scene;
+  sizes = this.experience.sizes;
   starCount: number = 2500;
   starPositions: Float32Array = new Float32Array(this.starCount * 3);
   starGeometry: THREE.BufferGeometry = new THREE.BufferGeometry();
-  starMaterial: THREE.PointsMaterial;
+  starMaterial: THREE.ShaderMaterial;
   stars: THREE.Points;
 
   constructor() {
@@ -29,11 +32,15 @@ export default class Stars {
       new THREE.BufferAttribute(this.starPositions, 3),
     );
 
-    this.starMaterial = new THREE.PointsMaterial({
+    this.starMaterial = new THREE.ShaderMaterial({
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      size: 0.05,
-      sizeAttenuation: true,
+      vertexColors: true,
+      vertexShader: starsVertexShader,
+      fragmentShader: starsFragmentShader,
+      uniforms: {
+        uSize: { value: 8 * this.sizes.pixelRatio },
+      },
     });
 
     this.stars = new THREE.Points(this.starGeometry, this.starMaterial);
