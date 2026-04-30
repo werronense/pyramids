@@ -7,9 +7,11 @@ export default class Stars {
   experience: Experience = new Experience();
   scene = this.experience.scene;
   sizes = this.experience.sizes;
-  starCount: number = 3000;
+  time = this.experience.time;
+  starCount: number = 7500;
   starPositions: Float32Array = new Float32Array(this.starCount * 3);
   starScales: Float32Array = new Float32Array(this.starCount);
+  starTwinkleRandomness: Float32Array = new Float32Array(this.starCount);
   starGeometry: THREE.BufferGeometry = new THREE.BufferGeometry();
   starMaterial: THREE.ShaderMaterial;
   stars: THREE.Points;
@@ -28,6 +30,7 @@ export default class Stars {
       this.starPositions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
 
       this.starScales[i] = Math.random();
+      this.starTwinkleRandomness[i] = Math.random() * 6000;
     }
 
     this.starGeometry.setAttribute(
@@ -38,6 +41,10 @@ export default class Stars {
       "aScale",
       new THREE.BufferAttribute(this.starScales, 1),
     );
+    this.starGeometry.setAttribute(
+      "aTwinkleRandomness",
+      new THREE.BufferAttribute(this.starTwinkleRandomness, 1),
+    );
 
     this.starMaterial = new THREE.ShaderMaterial({
       blending: THREE.AdditiveBlending,
@@ -47,11 +54,16 @@ export default class Stars {
       fragmentShader: starsFragmentShader,
       uniforms: {
         uSize: { value: 100 * this.sizes.pixelRatio },
+        uTime: { value: 0 },
       },
     });
 
     this.stars = new THREE.Points(this.starGeometry, this.starMaterial);
 
     this.scene.add(this.stars);
+  }
+
+  update() {
+    this.starMaterial.uniforms.uTime.value = this.time.elapsed;
   }
 }

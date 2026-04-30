@@ -1,6 +1,10 @@
 attribute float aScale;
+attribute float aTwinkleRandomness;
 
 uniform float uSize;
+uniform float uTime;
+
+varying float vTwinkleRandomness;
 
 void main() {
     // Positioning
@@ -13,6 +17,12 @@ void main() {
     // Sizing
     gl_PointSize = uSize * aScale;
 
+    // Twinkling
+    gl_PointSize *= 1.5 + (0.5 * sin((uTime + aTwinkleRandomness) * 0.00425));
+
     // Size attenuation
     gl_PointSize *= (1.0 / -viewPosition.z);
+
+    // Varyings
+    vTwinkleRandomness = aTwinkleRandomness;
 }

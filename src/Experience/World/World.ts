@@ -23,4 +23,8 @@ export default class World {
       this.overlay?.classList.add("close-overlay");
     });
   }
+
+  update() {
+    this.stars?.update();
+  }
 }
